@@ -1,0 +1,1 @@
+(function(){var a,b,c;c=$("#submit-email"),a=$("#input-email"),b=$("#message-email"),b.hide(),c.click(function(){return console.log(a.val()),a.val(""),b.fadeIn(),setTimeout(function(){return b.fadeOut()},2e3)})}).call(this);
