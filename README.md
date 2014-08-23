@@ -11,6 +11,7 @@
 * Dist: `npm start`
 
 ### Deployment
+* `grunt build`
 * `git push heroku master`
 
 ### URLs
