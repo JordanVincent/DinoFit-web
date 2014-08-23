@@ -8,13 +8,15 @@
 ### Execute
 
 * Dev: `grunt serve`
+* Test: `grunt test`
 * Dist: `npm start`
 
 ### Deployment
-* build: `grunt build`
-* staging: `git push staging master`
-* production: `git push production master`
+* Build: `grunt build`
+* Staging: `git push staging master`
+* Production: `git push production master`
 
 ### URLs
 
-* Root: http://candyfit-web.herokuapp.com/
+* Production: http://dinofit-web.herokuapp.com/ and http://getdinofit.com/
+* Staging: http://dinofit-web-staging.herokuapp.com/ and http://staging.getdinofit.com/

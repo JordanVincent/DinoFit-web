@@ -1,6 +1,3 @@
-# API_HOST = '//localhost:3000'
-API_HOST = '//candyfit-api.herokuapp.com' # TODO add config file
-
 submitEmail    = $('#submit-email')
 inputEmail     = $('#input-email')
 successMessage = $('#success-message')
@@ -10,7 +7,7 @@ submitEmail.click ->
 
   $.ajax(
     type: 'POST',
-    url: "#{API_HOST}/v1/newsletter_subscriptions",
+    url: "#{apiHost()}/v1/newsletter_subscriptions",
     data: { newsletter_subscription: { email: inputEmail.val() } },
     crossDomain: true
 
@@ -29,10 +26,16 @@ submitEmail.click ->
     , 2000)
   )
 
-  formatError = (response) ->
-    error = $.parseJSON(response.responseText)
+formatError = (response) ->
+  error = $.parseJSON(response.responseText)
 
-    unless error.errors or error.errors.email
-      return if error.error then error.error else 'Unknown error'
-    'Email ' + error.errors.email.join(', ')
+  unless error.errors or error.errors.email
+    return if error.error then error.error else 'Unknown error'
+  'Email ' + error.errors.email.join(', ')
 
+# TODO add config file
+apiHost = ->
+  host = window.location.host
+  return '//localhost:3000' if host.match('localhost')
+  return '//dinofit-api-staging.herokuapp.com' if host.match('staging')
+  '//dinofit-api.herokuapp.com'
