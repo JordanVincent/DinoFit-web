@@ -4,17 +4,20 @@ successMessage = $('#success-message')
 errorMessage   = $('#error-message')
 
 submitEmail.click ->
+  email = inputEmail.val()
 
   $.ajax(
     type: 'POST',
     url: "#{apiHost()}/v1/newsletter_subscriptions",
-    data: { newsletter_subscription: { email: inputEmail.val() } },
+    data: { newsletter_subscription: { email: email } },
     crossDomain: true
 
   ).done( ->
+    trackEmail(email)
     successMessage.fadeIn()
 
   ).fail( (response) ->
+    trackError(response.responseText)
     errorMessage.find('small').text formatError(response)
     errorMessage.fadeIn()
 
@@ -39,3 +42,11 @@ apiHost = ->
   return '//localhost:3000' if host.match('localhost')
   return '//dinofit-api-staging.herokuapp.com' if host.match('staging')
   '//dinofit-api.herokuapp.com'
+
+trackError = (error) ->
+  return unless ga
+  ga('send', 'event', 'newsletter_subscriptions', 'error', error)
+
+trackEmail = (email) ->
+  return unless ga
+  ga('send', 'event', 'newsletter_subscriptions', 'create')
